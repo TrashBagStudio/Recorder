@@ -1,200 +1,386 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+/>
+
 <title>RatVad VPN</title>
 
-<link rel="manifest" href="manifest.json">
-
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
+html,
+body{
+
     width:100%;
     height:100%;
     overflow:hidden;
-    font-family:Arial, Helvetica, sans-serif;
-    background:#8d0000;
+
+    font-family:Arial,sans-serif;
+
+    background:#300000;
 }
+
+/* ====================================
+   ОСНОВНОЙ ФОН
+==================================== */
 
 body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
+
+    background:
+    linear-gradient(
+        to bottom,
+        #1a0000 0%,
+        #4b0000 20%,
+        #790000 45%,
+        #9f0000 70%,
+        #c30000 100%
+    );
+
+    color:white;
 }
+
+/* ====================================
+   ПРИЛОЖЕНИЕ
+==================================== */
 
 .app{
+
     width:100%;
-    max-width:420px;
-    height:100vh;
-    background:
-        linear-gradient(to bottom,#2a0000 0%, #700000 30%, #b00000 70%, #c30000 100%);
-    border-radius:40px;
-    overflow:hidden;
-    position:relative;
-    border:8px solid #2b0000;
+    height:100%;
+
     display:flex;
     flex-direction:column;
+
+    overflow:hidden;
 }
 
-/* ВЕРХНЯЯ БЕГУЩАЯ СТРОКА */
-.marquee-wrap{
+/* ====================================
+   ШАПКА
+==================================== */
+
+.header{
+
     width:100%;
+    height:58px;
+
+    background:#3a0000;
+
+    border-bottom:
+    2px solid rgba(255,255,255,0.15);
+
+    position:relative;
+
     overflow:hidden;
-    border-bottom:2px solid rgba(255,255,255,0.2);
-    background:#5a0000;
-    min-height:48px;
+
+    flex-shrink:0;
+
     display:flex;
     align-items:center;
 }
 
+/* БЕГУЩАЯ СТРОКА */
+
 .marquee{
+
+    position:absolute;
+
     white-space:nowrap;
-    display:inline-block;
-    animation:marquee 18s linear infinite;
-    color:#fff;
+
+    color:white;
+
     font-size:20px;
+
     letter-spacing:5px;
-    padding-left:100%;
+
+    animation:
+    marquee 14s linear infinite;
 }
 
 @keyframes marquee{
-    0%{
-        transform:translateX(0);
+
+    from{
+        transform:translateX(100%);
     }
-    100%{
+
+    to{
         transform:translateX(-100%);
     }
 }
 
-.main{
+/* ====================================
+   СКРОЛЛ ЦЕНТРА
+==================================== */
+
+.center{
+
     flex:1;
-    padding:18px 14px 10px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    overflow:hidden;
+
+    overflow-y:auto;
+
+    padding:10px 12px 20px;
+
+    scrollbar-width:none;
 }
 
-/* КНОПКИ */
-.big-btn{
+.center::-webkit-scrollbar{
+    display:none;
+}
+
+/* ====================================
+   ВНУТРЕННИЙ КОНТЕЙНЕР
+==================================== */
+
+.content{
+
+    width:100%;
+
+    max-width:430px;
+
+    margin:auto;
+}
+
+/* ====================================
+   БЛОК КНОПОК
+==================================== */
+
+.buttons-box{
+
+    height:calc(100vh - 80px);
+
+    min-height:560px;
+
+    border:
+    10px solid #220000;
+
+    border-radius:38px;
+
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(60,0,0,0.45),
+        rgba(0,0,0,0.15)
+    );
+
+    padding:14px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:12px;
+}
+
+/* ====================================
+   КНОПКИ
+==================================== */
+
+.sound-btn{
+
     flex:1;
+
     border:none;
-    border-radius:18px;
+
+    border-radius:20px;
+
     display:flex;
+
     flex-direction:column;
-    justify-content:center;
+
     align-items:center;
-    color:#fff;
+
+    justify-content:center;
+
+    color:white;
+
     font-weight:bold;
-    font-size:28px;
+
     cursor:pointer;
-    box-shadow:
-        inset 0 0 0 2px rgba(255,255,255,0.05),
-        0 0 20px rgba(0,0,0,0.3);
+
     transition:0.15s;
+
+    min-height:0;
 }
 
-.big-btn:active{
-    transform:scale(0.98);
+.sound-btn:active{
+
+    transform:scale(0.985);
 }
 
-.big-btn img{
-    width:95px;
-    height:95px;
+/* ИКОНКИ */
+
+.sound-btn img{
+
+    width:min(22vw,110px);
+
+    height:min(22vw,110px);
+
     object-fit:contain;
-    margin-bottom:24px;
+
+    margin-bottom:20px;
+
     pointer-events:none;
 }
 
+/* ТЕКСТ */
+
+.sound-btn span{
+
+    font-size:
+    clamp(22px,4vw,34px);
+}
+
 /* ЦВЕТА */
+
 .record{
     background:#b50000;
 }
 
 .play{
-    background:#00d100;
+    background:#00d000;
 }
 
 .reverse{
     background:#1580f0;
 }
 
-/* КНОПКА ДОБАВИТЬ ЯРЛЫК */
+/* ====================================
+   НИЖНИЙ БЛОК
+==================================== */
+
+.bottom{
+
+    padding-top:14px;
+}
+
+/* ДОБАВИТЬ НА ЭКРАН */
+
 .install-btn{
+
     width:100%;
-    min-height:74px;
+
+    height:76px;
+
     border:none;
-    border-radius:26px;
-    background:#260000;
-    color:#fff;
-    font-size:28px;
+
+    border-radius:28px;
+
+    background:#250000;
+
+    color:white;
+
+    font-size:
+    clamp(22px,4vw,32px);
+
     font-weight:bold;
+
     cursor:pointer;
-    margin-top:2px;
+
+    margin-bottom:12px;
 }
 
 .install-btn:active{
-    transform:scale(0.98);
+
+    transform:scale(0.985);
 }
 
-/* НИЗ */
+/* ФУТЕР */
+
 .footer{
+
     width:100%;
-    min-height:74px;
-    background:#2d0000;
+
+    height:74px;
+
+    background:#290000;
+
+    border-radius:30px;
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
     padding:0 16px;
 }
 
+/* COPYRIGHT */
+
 .copy{
-    color:#fff;
-    font-size:18px;
+
+    font-size:
+    clamp(15px,3vw,24px);
+
+    color:white;
 }
+
+/* VPN КНОПКА */
 
 .vpn-btn{
-    background:#1384f5;
-    color:#fff;
+
+    background:#1580f0;
+
+    color:white;
+
     text-decoration:none;
-    font-size:24px;
+
+    padding:14px 28px;
+
+    border-radius:20px;
+
+    font-size:
+    clamp(18px,4vw,32px);
+
     font-weight:bold;
-    padding:14px 34px;
-    border-radius:22px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
 }
 
-/* АДАПТАЦИЯ */
-@media (max-height:760px){
+/* ====================================
+   МАЛЕНЬКИЕ ЭКРАНЫ
+==================================== */
 
-    .big-btn{
-        font-size:22px;
+@media(max-height:760px){
+
+    .header{
+        height:48px;
     }
 
-    .big-btn img{
+    .buttons-box{
+
+        padding:10px;
+
+        gap:10px;
+    }
+
+    .sound-btn img{
+
         width:72px;
         height:72px;
-        margin-bottom:16px;
+
+        margin-bottom:12px;
     }
 
     .install-btn{
-        min-height:62px;
-        font-size:22px;
+
+        height:64px;
     }
 
     .footer{
-        min-height:64px;
+
+        height:62px;
     }
 }
+
 </style>
 </head>
 
@@ -202,183 +388,330 @@ body{
 
 <div class="app">
 
-    <!-- БЕГУЩАЯ СТРОКА -->
-    <div class="marquee-wrap">
+    <!-- =========================
+         ШАПКА
+    ========================== -->
+
+    <div class="header">
+
         <div class="marquee">
-            RatVad VPN - 150руб, стабильно анонимно • 
-            RatVad VPN - 150руб, стабильно анонимно • 
+
             RatVad VPN - 150руб, стабильно анонимно •
+            RatVad VPN - 150руб, стабильно анонимно •
+            RatVad VPN - 150руб, стабильно анонимно •
+
         </div>
-    </div>
-
-    <div class="main">
-
-        <!-- ЗАПИСЬ -->
-        <button class="big-btn record" id="recordBtn">
-            
-            <!-- ВСТАВЬ СВОЮ ССЫЛКУ -->
-            <img src="https://raw.githubusercontent.com/TrashBagStudio/Recorder/refs/heads/main/micro.png" alt="">
-            
-            <div>Запись звука</div>
-        </button>
-
-        <!-- ПРОИГРАТЬ -->
-        <button class="big-btn play" id="playBtn">
-
-            <!-- ВСТАВЬ СВОЮ ССЫЛКУ -->
-            <img src="https://raw.githubusercontent.com/TrashBagStudio/Recorder/refs/heads/main/play.png" alt="">
-
-            <div>Играть запись</div>
-        </button>
-
-        <!-- РЕВЕРС -->
-        <button class="big-btn reverse" id="reverseBtn">
-
-            <!-- ВСТАВЬ СВОЮ ССЫЛКУ -->
-            <img src="https://raw.githubusercontent.com/TrashBagStudio/Recorder/refs/heads/main/reverse.png" alt="">
-
-            <div>Реверс записи</div>
-        </button>
-
-        <!-- ДОБАВИТЬ НА ЭКРАН -->
-        <button class="install-btn" id="installBtn">
-            ДОБАВИТЬ ЯРЛЫК НА ЭКРАН
-        </button>
 
     </div>
 
-    <!-- НИЗ -->
-    <div class="footer">
+    <!-- =========================
+         СКРОЛЛ
+    ========================== -->
 
-        <div class="copy">
-            Copyright RatVad VPN
+    <div class="center">
+
+        <div class="content">
+
+            <!-- =========================
+                 КНОПКИ
+            ========================== -->
+
+            <div class="buttons-box">
+
+                <!-- ЗАПИСЬ -->
+
+                <button
+                class="sound-btn record"
+                id="recordBtn">
+
+                    <!-- ВСТАВЬ ССЫЛКУ -->
+                    <img src="https://raw.githubusercontent.com/TrashBagStudio/Recorder/refs/heads/main/micro.png">
+
+                    <span>
+                        Запись звука
+                    </span>
+
+                </button>
+
+                <!-- ПРОИГРАТЬ -->
+
+                <button
+                class="sound-btn play"
+                id="playBtn">
+
+                    <!-- ВСТАВЬ ССЫЛКУ -->
+                    <img src="https://raw.githubusercontent.com/TrashBagStudio/Recorder/refs/heads/main/play.png">
+
+                    <span>
+                        Играть запись
+                    </span>
+
+                </button>
+
+                <!-- РЕВЕРС -->
+
+                <button
+                class="sound-btn reverse"
+                id="reverseBtn">
+
+                    <!-- ВСТАВЬ ССЫЛКУ -->
+                    <img src="https://raw.githubusercontent.com/TrashBagStudio/Recorder/refs/heads/main/reverse.png">
+
+                    <span>
+                        Реверс записи
+                    </span>
+
+                </button>
+
+            </div>
+
+            <!-- =========================
+                 НИЖНИЙ БЛОК
+            ========================== -->
+
+            <div class="bottom">
+
+                <!-- ДОБАВИТЬ -->
+
+                <button
+                class="install-btn"
+                id="installBtn">
+
+                    ДОБАВИТЬ ЯРЛЫК НА ЭКРАН
+
+                </button>
+
+                <!-- ФУТЕР -->
+
+                <div class="footer">
+
+                    <div class="copy">
+
+                        Copyright RatVad VPN
+
+                    </div>
+
+                    <!-- ВСТАВЬ ССЫЛКУ -->
+
+                    <a
+                    class="vpn-btn"
+                    href="VPN_LINK">
+
+                        Наш VPN
+
+                    </a>
+
+                </div>
+
+            </div>
+
         </div>
-
-        <!-- ВСТАВЬ СВОЮ ССЫЛКУ -->
-        <a href="VPN_LINK" class="vpn-btn">
-            Наш VPN
-        </a>
 
     </div>
 
 </div>
 
 <script>
-let mediaRecorder;
-let audioChunks = [];
-let audioBlob = null;
-let audioUrl = null;
-let audio = null;
 
-/* ЗАПИСЬ */
-document.getElementById('recordBtn').addEventListener('click', async () => {
+/* ====================================
+   ЗАПИСЬ
+==================================== */
+
+let mediaRecorder;
+
+let audioChunks = [];
+
+let recordedBlob = null;
+
+let audioURL = null;
+
+let audioPlayer = null;
+
+/* КНОПКИ */
+
+const recordBtn =
+document.getElementById("recordBtn");
+
+const playBtn =
+document.getElementById("playBtn");
+
+const reverseBtn =
+document.getElementById("reverseBtn");
+
+/* ====================================
+   ЗАПИСЬ
+==================================== */
+
+recordBtn.onclick = async ()=>{
 
     try{
 
-        if(mediaRecorder && mediaRecorder.state === "recording"){
+        /* ЕСЛИ УЖЕ ИДЕТ ЗАПИСЬ */
+
+        if(
+            mediaRecorder &&
+            mediaRecorder.state === "recording"
+        ){
+
             mediaRecorder.stop();
+
+            recordBtn.style.opacity = "1";
+
             return;
         }
 
-        const stream = await navigator.mediaDevices.getUserMedia({
+        /* ДОСТУП К МИКРОФОНУ */
+
+        const stream =
+        await navigator
+        .mediaDevices
+        .getUserMedia({
             audio:true
         });
 
         audioChunks = [];
 
-        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder =
+        new MediaRecorder(stream);
 
-        mediaRecorder.ondataavailable = e => {
+        mediaRecorder.ondataavailable = e=>{
+
             audioChunks.push(e.data);
         };
 
-        mediaRecorder.onstop = () => {
+        mediaRecorder.onstop = ()=>{
 
-            audioBlob = new Blob(audioChunks, {
-                type:'audio/webm'
+            recordedBlob =
+            new Blob(audioChunks,{
+
+                type:"audio/webm"
             });
 
-            audioUrl = URL.createObjectURL(audioBlob);
+            audioURL =
+            URL.createObjectURL(
+                recordedBlob
+            );
 
-            audio = new Audio(audioUrl);
-
-            alert("Запись сохранена");
+            audioPlayer =
+            new Audio(audioURL);
         };
 
         mediaRecorder.start();
 
-        alert("Идет запись... Нажми еще раз чтобы остановить");
+        recordBtn.style.opacity = "0.7";
 
     }catch(err){
-        alert("Ошибка микрофона");
+
+        alert("Нет доступа к микрофону");
+
         console.log(err);
     }
-});
+};
 
-/* ПРОИГРАТЬ */
-document.getElementById('playBtn').addEventListener('click', () => {
+/* ====================================
+   ПРОИГРАТЬ
+==================================== */
 
-    if(!audio){
-        alert("Нет записи");
+playBtn.onclick = ()=>{
+
+    if(!audioPlayer){
+
+        alert("Сначала сделай запись");
+
         return;
     }
 
-    audio.play();
-});
+    audioPlayer.pause();
 
-/* РЕВЕРС */
-document.getElementById('reverseBtn').addEventListener('click', async () => {
+    audioPlayer.currentTime = 0;
 
-    if(!audioBlob){
-        alert("Нет записи");
+    audioPlayer.play();
+};
+
+/* ====================================
+   РЕВЕРС
+==================================== */
+
+reverseBtn.onclick = async ()=>{
+
+    if(!recordedBlob){
+
+        alert("Сначала сделай запись");
+
         return;
     }
 
-    const arrayBuffer = await audioBlob.arrayBuffer();
+    const arrayBuffer =
+    await recordedBlob.arrayBuffer();
 
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const audioContext =
+    new (
+        window.AudioContext ||
+        window.webkitAudioContext
+    )();
 
-    const buffer = await audioContext.decodeAudioData(arrayBuffer);
+    const buffer =
+    await audioContext
+    .decodeAudioData(arrayBuffer);
 
-    for(let i = 0; i < buffer.numberOfChannels; i++){
-        Array.prototype.reverse.call(buffer.getChannelData(i));
+    for(
+        let i=0;
+        i<buffer.numberOfChannels;
+        i++
+    ){
+
+        Array
+        .prototype
+        .reverse
+        .call(
+            buffer.getChannelData(i)
+        );
     }
 
-    const reversedBuffer = audioContext.createBuffer(
-        buffer.numberOfChannels,
-        buffer.length,
-        buffer.sampleRate
+    const source =
+    audioContext.createBufferSource();
+
+    source.buffer = buffer;
+
+    source.connect(
+        audioContext.destination
     );
 
-    for(let i = 0; i < buffer.numberOfChannels; i++){
-        reversedBuffer.copyToChannel(buffer.getChannelData(i), i);
-    }
+    source.start(0);
+};
 
-    const source = audioContext.createBufferSource();
-    source.buffer = reversedBuffer;
-    source.connect(audioContext.destination);
-    source.start();
+/* ====================================
+   ДОБАВИТЬ НА ЭКРАН
+==================================== */
 
-});
-
-/* PWA ДОБАВИТЬ НА ЭКРАН */
 let deferredPrompt;
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-});
+window.addEventListener(
+    "beforeinstallprompt",
+    (e)=>{
 
-document.getElementById('installBtn').addEventListener('click', async () => {
+        e.preventDefault();
+
+        deferredPrompt = e;
+    }
+);
+
+document
+.getElementById("installBtn")
+.onclick = async ()=>{
 
     if(deferredPrompt){
-        deferredPrompt.prompt();
-        deferredPrompt = null;
-    }else{
-        alert("Используй Chrome/Android для установки");
-    }
 
-});
+        deferredPrompt.prompt();
+
+    }else{
+
+        alert(
+            "Открой сайт через Chrome на Android"
+        );
+    }
+};
+
 </script>
 
 </body>
