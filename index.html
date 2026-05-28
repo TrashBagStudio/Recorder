@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>RatVad VPN</title>
+
+<link rel="manifest" href="manifest.json">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#8d0000;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.app{
+    width:100%;
+    max-width:420px;
+    height:100vh;
+    background:
+        linear-gradient(to bottom,#2a0000 0%, #700000 30%, #b00000 70%, #c30000 100%);
+    border-radius:40px;
+    overflow:hidden;
+    position:relative;
+    border:8px solid #2b0000;
+    display:flex;
+    flex-direction:column;
+}
+
+/* ВЕРХНЯЯ БЕГУЩАЯ СТРОКА */
+.marquee-wrap{
+    width:100%;
+    overflow:hidden;
+    border-bottom:2px solid rgba(255,255,255,0.2);
+    background:#5a0000;
+    min-height:48px;
+    display:flex;
+    align-items:center;
+}
+
+.marquee{
+    white-space:nowrap;
+    display:inline-block;
+    animation:marquee 18s linear infinite;
+    color:#fff;
+    font-size:20px;
+    letter-spacing:5px;
+    padding-left:100%;
+}
+
+@keyframes marquee{
+    0%{
+        transform:translateX(0);
+    }
+    100%{
+        transform:translateX(-100%);
+    }
+}
+
+.main{
+    flex:1;
+    padding:18px 14px 10px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    overflow:hidden;
+}
+
+/* КНОПКИ */
+.big-btn{
+    flex:1;
+    border:none;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    font-weight:bold;
+    font-size:28px;
+    cursor:pointer;
+    box-shadow:
+        inset 0 0 0 2px rgba(255,255,255,0.05),
+        0 0 20px rgba(0,0,0,0.3);
+    transition:0.15s;
+}
+
+.big-btn:active{
+    transform:scale(0.98);
+}
+
+.big-btn img{
+    width:95px;
+    height:95px;
+    object-fit:contain;
+    margin-bottom:24px;
+    pointer-events:none;
+}
+
+/* ЦВЕТА */
+.record{
+    background:#b50000;
+}
+
+.play{
+    background:#00d100;
+}
+
+.reverse{
+    background:#1580f0;
+}
+
+/* КНОПКА ДОБАВИТЬ ЯРЛЫК */
+.install-btn{
+    width:100%;
+    min-height:74px;
+    border:none;
+    border-radius:26px;
+    background:#260000;
+    color:#fff;
+    font-size:28px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:2px;
+}
+
+.install-btn:active{
+    transform:scale(0.98);
+}
+
+/* НИЗ */
+.footer{
+    width:100%;
+    min-height:74px;
+    background:#2d0000;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 16px;
+}
+
+.copy{
+    color:#fff;
+    font-size:18px;
+}
+
+.vpn-btn{
+    background:#1384f5;
+    color:#fff;
+    text-decoration:none;
+    font-size:24px;
+    font-weight:bold;
+    padding:14px 34px;
+    border-radius:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* АДАПТАЦИЯ */
+@media (max-height:760px){
+
+    .big-btn{
+        font-size:22px;
+    }
+
+    .big-btn img{
+        width:72px;
+        height:72px;
+        margin-bottom:16px;
+    }
+
+    .install-btn{
+        min-height:62px;
+        font-size:22px;
+    }
+
+    .footer{
+        min-height:64px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- БЕГУЩАЯ СТРОКА -->
+    <div class="marquee-wrap">
+        <div class="marquee">
+            RatVad VPN - 150руб, стабильно анонимно • 
+            RatVad VPN - 150руб, стабильно анонимно • 
+            RatVad VPN - 150руб, стабильно анонимно •
+        </div>
+    </div>
+
+    <div class="main">
+
+        <!-- ЗАПИСЬ -->
+        <button class="big-btn record" id="recordBtn">
+            
+            <!-- ВСТАВЬ СВОЮ ССЫЛКУ -->
+            <img src="MIC_ICON_LINK" alt="">
+            
+            <div>Запись звука</div>
+        </button>
+
+        <!-- ПРОИГРАТЬ -->
+        <button class="big-btn play" id="playBtn">
+
+            <!-- ВСТАВЬ СВОЮ ССЫЛКУ -->
+            <img src="PLAY_ICON_LINK" alt="">
+
+            <div>Играть запись</div>
+        </button>
+
+        <!-- РЕВЕРС -->
+        <button class="big-btn reverse" id="reverseBtn">
+
+            <!-- ВСТАВЬ СВОЮ ССЫЛКУ -->
+            <img src="REVERSE_ICON_LINK" alt="">
+
+            <div>Реверс записи</div>
+        </button>
+
+        <!-- ДОБАВИТЬ НА ЭКРАН -->
+        <button class="install-btn" id="installBtn">
+            ДОБАВИТЬ ЯРЛЫК НА ЭКРАН
+        </button>
+
+    </div>
+
+    <!-- НИЗ -->
+    <div class="footer">
+
+        <div class="copy">
+            Copyright RatVad VPN
+        </div>
+
+        <!-- ВСТАВЬ СВОЮ ССЫЛКУ -->
+        <a href="VPN_LINK" class="vpn-btn">
+            Наш VPN
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+let mediaRecorder;
+let audioChunks = [];
+let audioBlob = null;
+let audioUrl = null;
+let audio = null;
+
+/* ЗАПИСЬ */
+document.getElementById('recordBtn').addEventListener('click', async () => {
+
+    try{
+
+        if(mediaRecorder && mediaRecorder.state === "recording"){
+            mediaRecorder.stop();
+            return;
+        }
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio:true
+        });
+
+        audioChunks = [];
+
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = e => {
+            audioChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = () => {
+
+            audioBlob = new Blob(audioChunks, {
+                type:'audio/webm'
+            });
+
+            audioUrl = URL.createObjectURL(audioBlob);
+
+            audio = new Audio(audioUrl);
+
+            alert("Запись сохранена");
+        };
+
+        mediaRecorder.start();
+
+        alert("Идет запись... Нажми еще раз чтобы остановить");
+
+    }catch(err){
+        alert("Ошибка микрофона");
+        console.log(err);
+    }
+});
+
+/* ПРОИГРАТЬ */
+document.getElementById('playBtn').addEventListener('click', () => {
+
+    if(!audio){
+        alert("Нет записи");
+        return;
+    }
+
+    audio.play();
+});
+
+/* РЕВЕРС */
+document.getElementById('reverseBtn').addEventListener('click', async () => {
+
+    if(!audioBlob){
+        alert("Нет записи");
+        return;
+    }
+
+    const arrayBuffer = await audioBlob.arrayBuffer();
+
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    const buffer = await audioContext.decodeAudioData(arrayBuffer);
+
+    for(let i = 0; i < buffer.numberOfChannels; i++){
+        Array.prototype.reverse.call(buffer.getChannelData(i));
+    }
+
+    const reversedBuffer = audioContext.createBuffer(
+        buffer.numberOfChannels,
+        buffer.length,
+        buffer.sampleRate
+    );
+
+    for(let i = 0; i < buffer.numberOfChannels; i++){
+        reversedBuffer.copyToChannel(buffer.getChannelData(i), i);
+    }
+
+    const source = audioContext.createBufferSource();
+    source.buffer = reversedBuffer;
+    source.connect(audioContext.destination);
+    source.start();
+
+});
+
+/* PWA ДОБАВИТЬ НА ЭКРАН */
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+});
+
+document.getElementById('installBtn').addEventListener('click', async () => {
+
+    if(deferredPrompt){
+        deferredPrompt.prompt();
+        deferredPrompt = null;
+    }else{
+        alert("Используй Chrome/Android для установки");
+    }
+
+});
+</script>
+
+</body>
+</html>
