@@ -527,7 +527,7 @@ recordBtn.onclick = async ()=>{
 
             recordedBlob =
             new Blob(audioChunks,{
-                type:"audio/webm"
+                type:"audio/mp4"
             });
 
             audioURL =
@@ -557,9 +557,9 @@ recordBtn.onclick = async ()=>{
    ПРОИГРАТЬ
 ===================================== */
 
-playBtn.onclick = ()=>{
+playBtn.onclick = async ()=>{
 
-    if(!audioPlayer){
+    if(!recordedBlob){
 
         alert(
             "Сначала сделай запись"
@@ -568,11 +568,36 @@ playBtn.onclick = ()=>{
         return;
     }
 
-    audioPlayer.pause();
+    try{
 
-    audioPlayer.currentTime = 0;
+        /* ОСТАНОВИТЬ ПРЕДЫДУЩИЙ */
 
-    audioPlayer.play();
+        if(audioPlayer){
+
+            audioPlayer.pause();
+        }
+
+        /* СОЗДАТЬ НОВЫЙ */
+
+        const url =
+        URL.createObjectURL(recordedBlob);
+
+        audioPlayer = new Audio(url);
+
+        audioPlayer.volume = 1;
+
+        /* ВАЖНО ДЛЯ ТЕЛЕФОНОВ */
+
+        await audioPlayer.play();
+
+    }catch(err){
+
+        console.log(err);
+
+        alert(
+            "Телефон не смог воспроизвести запись"
+        );
+    }
 };
 
 /* =====================================
